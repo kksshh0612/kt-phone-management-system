@@ -31,5 +31,31 @@ public class Phone {
         );
         return phoneRepository;
     }
+
+    //<<< Clean Arch / Port Method
+    public static void phoneLock(LostReportRegistered lostReportRegistered) {
+        //implement business logic here:
+
+        /** Example 1:  new item 
+        Phone phone = new Phone();
+        repository().save(phone);
+
+        */
+
+        /** Example 2:  finding and process
+        
+
+        repository().findById(lostReportRegistered.get???()).ifPresent(phone->{
+            
+            phone // do something
+            repository().save(phone);
+
+
+         });
+        */
+
+    }
+    //>>> Clean Arch / Port Method
+
 }
 //>>> DDD / Aggregate Root

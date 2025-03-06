@@ -47,7 +47,7 @@
                     text
                     @click="save"
                 >
-                저장
+                    분실 신고
                 </v-btn>
                 <v-btn
                     color="primary"

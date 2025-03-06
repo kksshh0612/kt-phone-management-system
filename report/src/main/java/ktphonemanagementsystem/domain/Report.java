@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.*;
 import ktphonemanagementsystem.ReportApplication;
+import ktphonemanagementsystem.domain.LostReportCanceled;
+import ktphonemanagementsystem.domain.LostReportRegistered;
 import lombok.Data;
 
 @Entity
@@ -28,6 +30,20 @@ public class Report {
     private Date registerTime;
 
     private Date cancelTime;
+
+    @PostPersist
+    public void onPostPersist() {
+        LostReportRegistered lostReportRegistered = new LostReportRegistered(
+            this
+        );
+        lostReportRegistered.publishAfterCommit();
+    }
+
+    @PostUpdate
+    public void onPostUpdate() {
+        LostReportCanceled lostReportCanceled = new LostReportCanceled(this);
+        lostReportCanceled.publishAfterCommit();
+    }
 
     public static ReportRepository repository() {
         ReportRepository reportRepository = ReportApplication.applicationContext.getBean(

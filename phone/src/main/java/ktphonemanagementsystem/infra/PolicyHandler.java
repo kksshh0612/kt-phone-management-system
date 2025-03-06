@@ -22,5 +22,21 @@ public class PolicyHandler {
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {}
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='LostReportRegistered'"
+    )
+    public void wheneverLostReportRegistered_PhoneLock(
+        @Payload LostReportRegistered lostReportRegistered
+    ) {
+        LostReportRegistered event = lostReportRegistered;
+        System.out.println(
+            "\n\n##### listener PhoneLock : " + lostReportRegistered + "\n\n"
+        );
+
+        // Sample Logic //
+        Phone.phoneLock(event);
+    }
 }
 //>>> Clean Arch / Inbound Adaptor
